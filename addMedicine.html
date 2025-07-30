@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>افزودن دارو</title>
+    <link rel="stylesheet" href="addMedicine.css">
+</head>
+<body>
+    <div class="container">
+        <h1>افزودن دارو</h1>
+        <form id="medicineForm" action="add_medicine.php" method="POST">
+            <label for="medicine_name">نام دارو:</label>
+            <input type="text" id="medicine_name" name="medicine_name" required>
+        
+            <label for="dose">دوز (تعداد مصرف در روز):</label>
+            <input type="number" id="dose" name="dose" min="1" required>
+        
+            <label for="time">زمان مصرف:</label>
+            <input type="time" id="time" name="time" required>
+        
+            <label for="duration">مدت زمان مصرف (روز):</label>
+            <input type="number" id="duration" name="duration" min="1" required>
+        
+            <label for="notes">توضیحات اضافی:</label>
+            <textarea id="notes" name="notes"></textarea>
+        
+            <button type="submit">ثبت دارو</button>
+        </form>
+        
+    </div>
+
+    <script src="addMedicine.js"></script>
+</body>
+</html>
