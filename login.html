@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود و ثبت نام</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e3f2fd;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: linear-gradient(145deg, #ffffff, #cfd8dc);
+            box-shadow: 10px 10px 20px #b0bec9, -10px -10px 20px #f6ffff;
+            border-radius: 20px;
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: none;
+            box-shadow: inset 5px 5px 10px #b0bec9, inset -5px -5px 10px #f6ffff;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #42a5f5;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #b0bec9, -5px -5px 10px #f6ffff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #1e88e5;
+        }
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        a {
+            text-decoration: none;
+            color: #42a5f5;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        .message {
+            margin-top: 20px;
+            color: green;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container" id="loginForm">
+            <h2>ورود </h2>
+            <input type="text" placeholder="ایمیل / شماره موبایل" required>
+            <input type="password" placeholder="رمز عبور" required>
+            <button onclick="login()">ورود</button>
+            <p><a onclick="toggleForms('forgotPassword')">فراموشی رمز عبور؟</a></p>
+            <p>حساب کاربری ندارید؟ <a onclick="toggleForms('registerForm')">ثبت‌نام</a></p>
+        </div>
+
+        <div class="form-container hidden" id="registerForm">
+            <h2>ثبت‌نام پزشکان</h2>
+            <input type="text" placeholder="نام کامل" required>
+            <input type="text" placeholder="شماره موبایل" required>
+            <input type="email" placeholder="ایمیل" required>
+            <input type="password" placeholder="رمز عبور" required>
+            <button onclick="register()">ثبت‌نام</button>
+            <p>حساب کاربری دارید؟ <a onclick="toggleForms('loginForm')">ورود</a></p>
+        </div>
+
+        <div class="form-container hidden" id="forgotPassword">
+            <h2>بازیابی رمز عبور</h2>
+            <input type="text" placeholder="شماره موبایل" required>
+            <button onclick="recoverPassword()">ارسال کد بازیابی</button>
+            <p>بازگشت به <a onclick="toggleForms('loginForm')">ورود</a></p>
+        </div>
+
+        <div id="message" class="message hidden"></div>
+    </div>
+
+    <script>
+        function toggleForms(formId) {
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.classList.add('hidden');
+            });
+            document.getElementById(formId).classList.remove('hidden');
+        }
+
+        function showMessage(text) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.classList.remove('hidden');
+            setTimeout(() => messageDiv.classList.add('hidden'), 5000);
+        }
+
+        function login() {
+            const userInput = document.querySelector('#loginForm input[type="text"]').value;
+            const password = document.querySelector('#loginForm input[type="password"]').value;
+
+            fetch('auth.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    action: 'login',
+                    user_input: userInput,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => showMessage(data.message))
+            .catch(error => showMessage('خطا در ارسال داده‌ها'));
+        }
+
+        function register() {
+            const fullName = document.querySelector('#registerForm input[placeholder="نام کامل"]').value;
+            const phone = document.querySelector('#registerForm input[placeholder="شماره موبایل"]').value;
+            const email = document.querySelector('#registerForm input[placeholder="ایمیل"]').value;
+            const password = document.querySelector('#registerForm input[placeholder="رمز عبور"]').value;
+
+            fetch('auth.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    action: 'register',
+                    full_name: fullName,
+                    phone: phone,
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => showMessage(data.message))
+            .catch(error => showMessage('خطا در ارسال داده‌ها'));
+        }
+
+        function recoverPassword() {
+            showMessage("کد بازیابی ارسال شد");
+        }
+    </script>
+</body>
+</html>

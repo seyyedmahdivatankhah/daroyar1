@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <title>نتیجه مشاوره</title>
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            direction: rtl; /* اضافه کردن راست‌چین برای زبان فارسی */
+        }
+
+        .container {
+            margin: auto;
+            padding: 40px;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background: #6a11cb;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #5f0dcf;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>نتیجه مشاوره پزشکی</h1>
+
+        {% if model_disease %}
+            <p>✅ تشخیص بر اساس مدل: <strong>{{ model_disease }}</strong></p>
+        {% else %}
+            <p>❌ نتوانستیم بیماری را از طریق مدل شناسایی کنیم.</p>
+        {% endif %}
+
+        {% if dataset_disease and medication %}
+            <p>📋 تشخیص از دیتاست: <strong>{{ dataset_disease }}</strong></p>
+            <p>💊 داروی پیشنهادی: <strong>{{ medication }}</strong></p>
+        {% else %}
+            <p>❌ اطلاعاتی در دیتاست برای علائم شما یافت نشد.</p>
+        {% endif %}
+
+        <a href="index.html" class="back-btn">بازگشت به صفحه اصلی</a>
+    </div>
+</body>
+
+</html>

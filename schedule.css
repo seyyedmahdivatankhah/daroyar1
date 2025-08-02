@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('Medical-specialties-in-English.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    text-align: right;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px) brightness(0.8);
+}
+.container {
+    max-width: 1000px;
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+h1 {
+    text-align: center;
+    color: #00796b;
+    position: relative;
+    animation: slideIn 1s ease-in-out;
+}
+@keyframes slideIn {
+    from { right: -100px; opacity: 0; }
+    to { right: 0; opacity: 1; }
+}
+#clock {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}

@@ -1,0 +1,21 @@
+symptom1,symptom2,symptom3,disease,medication
+fever,cough,headache,Flu,Paracetamol
+cough,runny_nose,sore_throat,Cold,Antihistamine
+headache,blurred_vision,loss_of_taste,Migraine,Ibuprofen
+nausea,vomiting,diarrhea,Food Poisoning,Oral Rehydration
+dizziness,sweating,chills,Heat Stroke,Cooling Therapy
+chest_pain,shortness_of_breath,fatigue,Heart Disease,Aspirin
+fatigue,weakness,numbness,Anemia,Iron Supplements
+rash,itching,pain,Allergy,Antiallergics
+joint_pain,fever,weakness,Arthritis,NSAIDs
+vomiting,dizziness,loss_of_smell,Gastroenteritis,Antibiotics
+sore_throat,fatigue,muscle_pain,Tonsillitis,Penicillin
+shortness_of_breath,chest_pain,wheezing,Asthma,Bronchodilators
+abdominal_pain,nausea,vomiting,Appendicitis,Surgery
+loss_of_smell,headache,joint_pain,Covid-19,Antivirals
+blurred_vision,dry_mouth,flushing,Diabetes,Insulin
+diarrhea,stomach_pain,weight_loss,IBS,Antispasmodics
+sweating,irregular_heartbeat,blurred_vision,Hypertension,ACE Inhibitors
+weight_loss,fever,swelling,Tuberculosis,Antibiotics
+muscle_pain,loss_of_balance,cough,Parkinson's,Levodopa
+swelling,pain,loss_of_appetite,Kidney Stones,Painkillers

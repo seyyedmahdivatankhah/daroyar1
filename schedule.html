@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدول برنامه داروها</title>
+    <link rel="stylesheet" href="schedule.css">
+</head>
+<body>
+    <div class="container">
+        <h1>جدول برنامه داروها</h1>
+        <div id="clock" class="clock"></div>
+        <table id="scheduleTable">
+            <thead>
+                <tr>
+                    <th>ساعت</th>
+                    <th>شنبه</th>
+                    <th>یکشنبه</th>
+                    <th>دوشنبه</th>
+                    <th>سه‌شنبه</th>
+                    <th>چهارشنبه</th>
+                    <th>پنج‌شنبه</th>
+                    <th>جمعه</th>
+                </tr>
+            </thead>
+            <tbody id="scheduleBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        // نمایش ساعت جاری
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock(); // اجرا در لحظه
+
+        // دریافت و نمایش داده‌های دارو از سرور
+        async function fetchSchedule() {
+            try {
+                const response = await fetch('get_schedule.php');
+                const data = await response.json();
+                renderSchedule(data);
+            } catch (error) {
+                console.error('خطا در دریافت برنامه داروها:', error);
+            }
+        }
+
+        // پر کردن جدول بر اساس داده‌های دریافتی
+        function renderSchedule(data) {
+            const scheduleBody = document.getElementById('scheduleBody');
+            scheduleBody.innerHTML = '';
+
+            // یک حلقه برای ساعت‌های روز (0 تا 23)
+            for (let hour = 0; hour < 24; hour++) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${hour.toString().padStart(2, '0')}:00</td>
+                    <td id="sat_${hour}"></td>
+                    <td id="sun_${hour}"></td>
+                    <td id="mon_${hour}"></td>
+                    <td id="tue_${hour}"></td>
+                    <td id="wed_${hour}"></td>
+                    <td id="thu_${hour}"></td>
+                    <td id="fri_${hour}"></td>
+                `;
+                scheduleBody.appendChild(row);
+            }
+
+            // پر کردن خانه‌های جدول با داده‌های دارو
+            data.forEach(med => {
+                const { medicine_name, dose, time, days } = med;
+                const [hour, minute] = time.split(':');
+                const hourInt = parseInt(hour, 10);
+
+                days.split(',').forEach(day => {
+                    const cell = document.getElementById(`${day}_${hourInt}`);
+                    if (cell) {
+                        cell.innerHTML += `${medicine_name} (${dose})<br>`;
+                    }
+                });
+            });
+        }
+
+        fetchSchedule(); // دریافت برنامه هنگام بارگذاری صفحه
+    </script>
+</body>
+</html>
